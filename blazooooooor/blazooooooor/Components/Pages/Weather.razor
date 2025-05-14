@@ -1,7 +1,8 @@
 ﻿@page "/weather"
 @attribute [StreamRendering]
+@using System
 
-<PageTitle>Weather</PageTitle>
+<PageTitle>Clima</PageTitle>
 
 <h1>Clima</h1>
 
@@ -47,11 +48,13 @@ else
         var startDate = DateOnly.FromDateTime(DateTime.Now);
         var summaries = new[] { "Congelante", "Revigorante", "Frio", "Fresco", "Ameno", "Quente", "Agradável", "Caloroso", "Escaldante", "Ardente" };
         
+        Random random = new Random();
+
         forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = startDate.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = summaries[Random.Shared.Next(summaries.Length)]
+            @* TemperatureC = random.Next(-20, 55),
+            Summary = summaries[random.Next(summaries.Length)] *@
         }).ToArray();
     }
 

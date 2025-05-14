@@ -1,0 +1,30 @@
+﻿@page "/random"
+@attribute [StreamRendering]
+
+<PageTitle>Aleatório</PageTitle>
+
+<h1>Aleatório</h1>
+
+<p>Este componente sempre mostra uma palavra aleatória: @randomWord</p>
+
+@code {
+    private string? randomWord;
+    private System.Random random = new System.Random();
+    private string[] words = new string[]
+    {
+        "Blazor",
+        "C#",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "Java",
+        "Ruby",
+    };
+
+    protected override void OnInitialized()
+    {
+        randomWord = words[random.Next(words.Length)];
+    }
+}
