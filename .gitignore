@@ -26,3 +26,6 @@ obj/
 /blazooooooor/blazooooooor/obj/blazooooooor.csproj.nuget.g.props
 /blazooooooor/blazooooooor/obj/project.nuget.cache
 /.vs
+/blazooooooor/.vs/ProjectEvaluation
+*.v2
+/MegaSenaBlazor/.vs/MegaSenaBlazor
