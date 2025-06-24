@@ -91,6 +91,7 @@
     "yocto-queue": "^0.1.0"
   },
   "scripts": {
+    "dev": "dotnet watch run",
     "watch": "npx @tailwindcss/cli -i ./Themes/Theme.css -o ./wwwroot/css/theme.css --watch",
     "build": "npx @tailwindcss/cli -i ./Themes/Theme.css -o ./wwwroot/css/theme.min.css --minify"
   },
