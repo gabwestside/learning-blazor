@@ -8,15 +8,16 @@
 # Ignorar diretórios bin e obj
 /bin/
 /obj/
-/.vs
+/.vs/
 
-/blazooooooor/.vs/
-/blazooooooor/blazooooooor/obj/
-/blazooooooor/blazooooooor/obj/Debug/net9.0
-/blazooooooor/blazooooooor/obj/Release/net9.0
+/WebBlazor/.vs/
+/WebBlazor/obj/
+/WebBlazor/bin/
+# /WebBlazor/obj/Debug/net9.0
+# /WebBlazor/obj/Release/net9.0
 
-/MegaSenaBlazor/.vs/MegaSenaBlazor
+/MegaSenaBlazor/.vs/
 /MegaSenaBlazor/node_modules
-/MegaSenaBlazor/.vs/ProjectEvaluation
 /MegaSenaBlazor/obj
-/MegaSenaBlazor/bin/Debug/net9.0
+/MegaSenaBlazor/bin/
+# /MegaSenaBlazor/bin/Debug/net9.0
