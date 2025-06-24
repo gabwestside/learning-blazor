@@ -1,40 +1,70 @@
 ﻿@page "/"
-
 @using MegaSenaBlazor.Services
-
 @inject MegaSenaService MegaSenaService
 
 <PageTitle>Gerador de Números da Sorte</PageTitle>
 
-<h3>Último Resultado Oficial</h3>
+<div class="container mx-auto p-4 space-y-6">
 
-@if (latestResult is null)
-{
-    <p>Carregando...</p>
-}
-else
-{
-    <div style="margin-bottom: 1rem;">
-        <strong>Consurso:</strong> @latestResult.DrawNumber <br />
-        <strong>Data:</strong> @latestResult.Date <br />
-        <strong>Números:</strong> @string.Join(", ", latestResult.Numbers) <br />
-        <strong>Acumulou:</strong> @(latestResult.IsAccumulated ? "Yes" : "No") <br />
-        <strong>Data do próximo concurso:</strong> @latestResult.NextDrawDate
+    <h1 class="text-2xl font-bold text-center text-green-700">Último Resultado da Mega-Sena</h1>
+
+    @if (latestResult is null)
+    {
+        <p class="text-center text-gray-500">Carregando resultado...</p>
+    }
+    else
+    {
+        <div class="bg-white shadow-lg rounded-xl p-4 md:p-6 max-w-xl mx-auto text-center">
+            <p class="text-lg font-semibold text-gray-700">Concurso <span
+                    class="text-green-700">#@latestResult.DrawNumber</span></p>
+            <p class="text-sm text-gray-500">Data: @latestResult.Date</p>
+
+            <div class="flex flex-wrap justify-center gap-2 my-4">
+                @foreach (var number in latestResult.Numbers.OrderBy(n => n))
+                {
+                    <div class="w-10 h-10 flex items-center justify-center bg-green-600 text-white rounded-full font-bold">
+                        @number
+                    </div>
+                }
+            </div>
+
+            <p>
+                <span class="font-semibold">Acumulou:</span>
+                <span class="@(latestResult.IsAccumulated ? "text-red-600 font-bold" : "text-green-600 font-bold")">
+                    @(latestResult.IsAccumulated ? "SIM" : "NÃO")
+                </span>
+            </p>
+
+            <p class="mt-2 text-sm text-gray-600">
+                Próximo sorteio: <span class="font-semibold">@latestResult.NextDrawDate</span>
+            </p>
+        </div>
+    }
+
+    <h2 class="text-xl font-bold text-center text-blue-700">Gerador de Números</h2>
+
+    <div class="bg-white shadow-md rounded-xl p-4 max-w-xl mx-auto text-center">
+        <p class="text-gray-700 font-medium mb-2">Números Gerados:</p>
+
+        @if (generatedNumbers.Count > 0)
+        {
+            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                @foreach (var number in generatedNumbers.OrderBy(n => n))
+                {
+                    <div class="w-10 h-10 flex items-center justify-center bg-blue-600 text-white rounded-full font-bold">
+                        @number
+                    </div>
+                }
+            </div>
+        }
+
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition"
+            @onclick="GenerateNumbers">
+            Gerar Números
+        </button>
     </div>
-}
 
-<hr />
-
-<h3>Gerador de Números Mega-Sena</h3>
-
-<p>Números Gerados:</p>
-
-@if (generatedNumbers.Count > 0)
-{
-    <p>@string.Join(", ", generatedNumbers.OrderBy(n => n))</p>
-}
-
-<button @onclick="GenerateNumbers">Gerar</button>
+</div>
 
 @code {
     private List<int> generatedNumbers = new();
@@ -43,10 +73,11 @@ else
     private void GenerateNumbers()
     {
         var rand = new Random();
-        generatedNumbers = Enumerable.Range(1, 60)
-                                     .OrderBy(_ => rand.Next())
-                                     .Take(6)
-                                     .ToList();
+        generatedNumbers = Enumerable
+            .Range(1, 60)
+            .OrderBy(_ => rand.Next())
+            .Take(6)
+            .ToList();
     }
 
     protected override async Task OnInitializedAsync()
