@@ -1,10 +1,14 @@
 ﻿@page "/"
+
 @using MegaSenaBlazor.Services
+
 @inject MegaSenaService MegaSenaService
+@inject IJSRuntime JS
 
 <PageTitle>Gerador de Números da Sorte</PageTitle>
 
 <div class="container">
+    <audio id="plimSound" src="sounds/plim.mp3" preload="auto"></audio>
     <h1>Gerador da Sorte 🍀</h1>
     <h2>Último Resultado da Mega-Sena</h2>
 
@@ -43,6 +47,7 @@
         </div>
     }
 
+   
     <div class="section">
         <h2>Gerador de Números</h2>
 
@@ -58,7 +63,7 @@
         else if (generatedNumbers.Count > 0)
         {
             <div class="numbers">
-                @foreach (var number in generatedNumbers.OrderBy(n => n))
+                @foreach (var number in revealedNumbers)
                 {
                     <div class="number-ball generated-ball">@number</div>
                 }
@@ -66,7 +71,7 @@
         }
 
         <div style="text-align:center; margin-top: 1rem;">
-            <button @onclick="GenerateNumbers" disabled="@isGenerating">Gerar Números</button>
+            <button @onclick="GenerateNumbers" disabled="@isGenerating">Gerar</button>
         </div>
     </div>
 </div>
@@ -76,16 +81,30 @@
     private MegaSenaResult? latestResult;
     private bool isLoadingApi = true;
     private bool isGenerating = false;
+    private List<int> revealedNumbers = new();
 
     private async Task GenerateNumbers()
     {
         isGenerating = true;
-        await Task.Delay(1000);
+        revealedNumbers.Clear();
+
+        await Task.Delay(600);
+
         var rand = new Random();
-        generatedNumbers = Enumerable.Range(1, 60)
-        .OrderBy(_ => rand.Next())
-        .Take(6)
-        .ToList();
+        generatedNumbers = Enumerable
+                            .Range(1, 60)
+                            .OrderBy(_ => rand.Next())
+                            .Take(6)
+                            .ToList();
+
+        foreach (var number in generatedNumbers.OrderBy(n => n))
+        {
+            revealedNumbers.Add(number);
+            await JS.InvokeVoidAsync("playPlim");
+            StateHasChanged();
+            await Task.Delay(400);
+        }
+
         isGenerating = false;
     }
 

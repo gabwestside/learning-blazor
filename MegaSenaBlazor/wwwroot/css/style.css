@@ -47,6 +47,7 @@ h1, h2 {
 
 .generated-ball {
   background-color: #3498db;
+  animation: appear 0.3s ease-in;
 }
 
 button {
@@ -159,4 +160,30 @@ button:hover {
 @keyframes blink {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.2); }
+}
+/* 
+.number-ball {
+  background-color: #2ecc71;
+  color: white;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.25rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  animation: appear 0.3s ease-in;
+} */
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
