@@ -92,6 +92,7 @@
   },
   "scripts": {
     "dev": "dotnet watch run",
+    "publish": "dotnet publish -c Release -o dist",
     "watch": "npx @tailwindcss/cli -i ./Themes/Theme.css -o ./wwwroot/css/theme.css --watch",
     "build": "npx @tailwindcss/cli -i ./Themes/Theme.css -o ./wwwroot/css/theme.min.css --minify"
   },
