@@ -8,15 +8,17 @@
 # Ignorar diretórios bin e obj
 /bin/
 /obj/
-/.vs/
 
-/WebBlazor/.vs/
+# Ignorar pastas de configuração de IDEs
+.idea/
+.vscode/
+.vs/
+
 /WebBlazor/obj/
 /WebBlazor/bin/
 # /WebBlazor/obj/Debug/net9.0
 # /WebBlazor/obj/Release/net9.0
 
-/MegaSenaBlazor/.vs/
 /MegaSenaBlazor/node_modules
 /MegaSenaBlazor/obj
 /MegaSenaBlazor/bin/
