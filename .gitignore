@@ -15,3 +15,4 @@ docs/
 .idea/
 .vscode/
 .vs/
+/MegaSenaBlazor/node_modules
